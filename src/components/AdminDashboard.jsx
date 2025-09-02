@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table, Badge, Button, Nav, Navbar, Dropdown } from 'react-bootstrap';
-import { FaUsers, FaHome, FaEnvelope, FaPhone, FaSignOutAlt, FaChartBar, FaCog, FaTrash } from 'react-icons/fa';
+import { FaUsers, FaHome, FaEnvelope, FaPhone, FaSignOutAlt, FaChartBar, FaCog, FaTrash, FaTachometerAlt, FaBuilding, FaMoneyBillWave, FaEye, FaReply } from 'react-icons/fa';
 import { database } from '../firebase';
 import { ref, onValue, off, remove } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
@@ -70,38 +70,38 @@ const AdminDashboard = () => {
   const renderOverview = () => (
     <Row>
       <Col md={3} className="mb-4">
-        <Card className="text-center h-100 border-0 shadow-sm">
-          <Card.Body>
-            <FaUsers size={40} className="text-primary mb-3" />
-            <h3 className="mb-1">{contacts.length}</h3>
-            <p className="text-muted">Total Contacts</p>
+        <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
+          <Card.Body className="p-4">
+            <FaUsers size={50} className="text-white mb-3" />
+            <h2 className="mb-1 text-white fw-bold">{contacts.length}</h2>
+            <p className="text-white opacity-75 mb-0 fw-semibold">Total Contacts</p>
           </Card.Body>
         </Card>
       </Col>
       <Col md={3} className="mb-4">
-        <Card className="text-center h-100 border-0 shadow-sm">
-          <Card.Body>
-            <FaHome size={40} className="text-success mb-3" />
-            <h3 className="mb-1">24</h3>
-            <p className="text-muted">Properties</p>
+        <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
+          <Card.Body className="p-4">
+            <FaHome size={50} className="text-white mb-3" />
+            <h2 className="mb-1 text-white fw-bold">24</h2>
+            <p className="text-white opacity-75 mb-0 fw-semibold">Properties</p>
           </Card.Body>
         </Card>
       </Col>
       <Col md={3} className="mb-4">
-        <Card className="text-center h-100 border-0 shadow-sm">
-          <Card.Body>
-            <FaEnvelope size={40} className="text-warning mb-3" />
-            <h3 className="mb-1">12</h3>
-            <p className="text-muted">New Messages</p>
+        <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
+          <Card.Body className="p-4">
+            <FaEnvelope size={50} className="text-white mb-3" />
+            <h2 className="mb-1 text-white fw-bold">12</h2>
+            <p className="text-white opacity-75 mb-0 fw-semibold">New Messages</p>
           </Card.Body>
         </Card>
       </Col>
       <Col md={3} className="mb-4">
-        <Card className="text-center h-100 border-0 shadow-sm">
-          <Card.Body>
-            <FaChartBar size={40} className="text-info mb-3" />
-            <h3 className="mb-1">₹2.5M</h3>
-            <p className="text-muted">Total Revenue</p>
+        <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
+          <Card.Body className="p-4">
+            <FaMoneyBillWave size={50} className="text-white mb-3" />
+            <h2 className="mb-1 text-white fw-bold">₹2.5M</h2>
+            <p className="text-white opacity-75 mb-0 fw-semibold">Total Revenue</p>
           </Card.Body>
         </Card>
       </Col>
@@ -109,9 +109,11 @@ const AdminDashboard = () => {
   );
 
   const renderContacts = () => (
-    <Card className="border-0 shadow-sm">
-      <Card.Header className="bg-white border-bottom">
-        <h5 className="mb-0">Contact Management</h5>
+    <Card className="border-0 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+      <Card.Header className="border-0" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+        <h5 className="mb-0 text-white fw-bold d-flex align-items-center">
+          <FaEnvelope className="me-2" /> Contact Management
+        </h5>
       </Card.Header>
       <Card.Body className="p-0">
         {contacts.length === 0 ? (
@@ -155,11 +157,11 @@ const AdminDashboard = () => {
                     </Badge>
                   </td>
                   <td>
-                    <Button variant="outline-primary" size="sm" className="me-2">
-                      View
+                    <Button variant="outline-primary" size="sm" className="me-2 rounded-pill">
+                      <FaEye className="me-1" /> View
                     </Button>
-                    <Button variant="outline-secondary" size="sm" className="me-2">
-                      Reply
+                    <Button variant="outline-success" size="sm" className="me-2 rounded-pill">
+                      <FaReply className="me-1" /> Reply
                     </Button>
                     <Button 
                       variant="outline-danger" 
@@ -182,10 +184,12 @@ const AdminDashboard = () => {
   const renderProperties = () => (
     <Row>
       <Col md={12} className="mb-4">
-        <Card className="border-0 shadow-sm">
-          <Card.Header className="bg-white border-bottom d-flex justify-content-between align-items-center">
-            <h5 className="mb-0">Property Management</h5>
-            <Button variant="primary">
+        <Card className="border-0 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+          <Card.Header className="border-0 d-flex justify-content-between align-items-center" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+            <h5 className="mb-0 text-white fw-bold d-flex align-items-center">
+              <FaHome className="me-2" /> Property Management
+            </h5>
+            <Button className="rounded-pill fw-semibold" style={{ background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white' }}>
               <FaHome className="me-2" />
               Add New Property
             </Button>
@@ -199,9 +203,11 @@ const AdminDashboard = () => {
   );
 
   const renderSettings = () => (
-    <Card className="border-0 shadow-sm">
-      <Card.Header className="bg-white border-bottom">
-        <h5 className="mb-0">Admin Settings</h5>
+    <Card className="border-0 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+      <Card.Header className="border-0" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+        <h5 className="mb-0 text-white fw-bold d-flex align-items-center">
+          <FaCog className="me-2" /> Admin Settings
+        </h5>
       </Card.Header>
       <Card.Body>
         {adminData && (
@@ -228,31 +234,38 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-vh-100" style={{ backgroundColor: '#f8f9fa' }}>
+    <div className="min-vh-100" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '100vh' }}>
       {/* Top Navigation */}
-      <Navbar bg="white" expand="lg" className="shadow-sm border-bottom">
-        <Container fluid>
-          <Navbar.Brand className="fw-bold text-primary">
-            🏠 Estate Admin Dashboard
+      <Navbar className="shadow-lg border-0" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+        <Container fluid className="px-4">
+          <Navbar.Brand className="fw-bold d-flex align-items-center" style={{ color: '#2c3e50' }}>
+            <FaBuilding className="me-2" size={28} style={{ color: '#667eea' }} />
+            <span style={{ fontSize: '1.5rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Paragon Properties Admin</span>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <Dropdown align="end">
-              <Dropdown.Toggle variant="outline-secondary" className="border-0">
-                Admin Profile
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>
-                  <FaCog className="me-2" />
-                  Settings
-                </Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={handleLogout} className="text-danger">
-                  <FaSignOutAlt className="me-2" />
-                  Logout
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <div className="d-flex align-items-center">
+              <span className="me-3 fw-semibold" style={{ color: '#2c3e50' }}>Welcome, Admin</span>
+              <Dropdown align="end">
+                <Dropdown.Toggle 
+                  className="border-0 rounded-pill px-3 fw-semibold"
+                  style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}
+                >
+                  <FaCog className="me-1" /> Profile
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="border-0 shadow-lg rounded-3">
+                  <Dropdown.Item className="py-2">
+                    <FaCog className="me-2" />
+                    Settings
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleLogout} className="text-danger py-2">
+                    <FaSignOutAlt className="me-2" />
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -261,44 +274,76 @@ const AdminDashboard = () => {
         <Row>
           {/* Sidebar */}
           <Col md={2} className="mb-4">
-            <Card className="border-0 shadow-sm">
+            <Card className="border-0 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
               <Card.Body className="p-0">
-                <Nav variant="pills" className="flex-column">
-                  <Nav.Item>
+                <div className="p-4 text-center border-bottom">
+                  <FaTachometerAlt className="mb-2" size={35} style={{ color: '#667eea' }} />
+                  <h6 className="mb-0 fw-bold" style={{ color: '#2c3e50' }}>Dashboard</h6>
+                </div>
+                <Nav variant="pills" className="flex-column p-3">
+                  <Nav.Item className="mb-2">
                     <Nav.Link 
                       active={activeTab === 'overview'}
                       onClick={() => setActiveTab('overview')}
-                      className="text-start"
+                      className="text-start rounded-3 py-3 sidebar-nav-link"
+                      style={{
+                        background: activeTab === 'overview' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'transparent',
+                        color: activeTab === 'overview' ? 'white' : '#2c3e50',
+                        border: 'none',
+                        transition: 'all 0.3s ease',
+                        fontWeight: '600'
+                      }}
                     >
                       <FaChartBar className="me-2" />
                       Overview
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
+                  <Nav.Item className="mb-2">
                     <Nav.Link 
                       active={activeTab === 'contacts'}
                       onClick={() => setActiveTab('contacts')}
-                      className="text-start"
+                      className="text-start rounded-3 py-3 sidebar-nav-link"
+                      style={{
+                        background: activeTab === 'contacts' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'transparent',
+                        color: activeTab === 'contacts' ? 'white' : '#2c3e50',
+                        border: 'none',
+                        transition: 'all 0.3s ease',
+                        fontWeight: '600'
+                      }}
                     >
                       <FaUsers className="me-2" />
                       Contacts ({contacts.length})
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
+                  <Nav.Item className="mb-2">
                     <Nav.Link 
                       active={activeTab === 'properties'}
                       onClick={() => setActiveTab('properties')}
-                      className="text-start"
+                      className="text-start rounded-3 py-3 sidebar-nav-link"
+                      style={{
+                        background: activeTab === 'properties' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'transparent',
+                        color: activeTab === 'properties' ? 'white' : '#2c3e50',
+                        border: 'none',
+                        transition: 'all 0.3s ease',
+                        fontWeight: '600'
+                      }}
                     >
                       <FaHome className="me-2" />
                       Properties
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item>
+                  <Nav.Item className="mb-2">
                     <Nav.Link 
                       active={activeTab === 'settings'}
                       onClick={() => setActiveTab('settings')}
-                      className="text-start"
+                      className="text-start rounded-3 py-3 sidebar-nav-link"
+                      style={{
+                        background: activeTab === 'settings' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'transparent',
+                        color: activeTab === 'settings' ? 'white' : '#2c3e50',
+                        border: 'none',
+                        transition: 'all 0.3s ease',
+                        fontWeight: '600'
+                      }}
                     >
                       <FaCog className="me-2" />
                       Settings
@@ -311,9 +356,14 @@ const AdminDashboard = () => {
 
           {/* Main Content */}
           <Col md={10}>
-            <div className="mb-4">
-              <h2 className="mb-1">Welcome to Admin Dashboard</h2>
-              <p className="text-muted">Manage your real estate business efficiently</p>
+            <div className="mb-4 p-4 rounded-4 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
+              <div className="d-flex align-items-center justify-content-between">
+                <div>
+                  <h2 className="mb-1 fw-bold" style={{ color: '#2c3e50' }}>Welcome to Paragon Properties</h2>
+                  <p className="mb-0" style={{ color: '#6c757d' }}>Manage your real estate business efficiently</p>
+                </div>
+                <FaBuilding size={50} style={{ color: '#667eea', opacity: 0.7 }} />
+              </div>
             </div>
 
             {activeTab === 'overview' && renderOverview()}
@@ -323,6 +373,26 @@ const AdminDashboard = () => {
           </Col>
         </Row>
       </Container>
+      <style>{`
+        .sidebar-nav-link:hover {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+          color: white !important;
+          transform: translateX(5px);
+        }
+        
+        .stat-card:hover {
+          transform: translateY(-8px) scale(1.02) !important;
+          box-shadow: 0 15px 35px rgba(0,0,0,0.2) !important;
+        }
+        
+        .table-hover tbody tr:hover {
+          background-color: rgba(102, 126, 234, 0.1) !important;
+        }
+        
+        .rounded-pill:hover {
+          transform: scale(1.05);
+        }
+      `}</style>
     </div>
   );
 };

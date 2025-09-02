@@ -4,18 +4,23 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import { useFavorites } from '../contexts/FavoritesContext';
-import { useUserAuth } from '../contexts/UserAuthContext';  
+import { useUserAuth } from '../contexts/UserAuthContext';
+import LoginSelectionModal from './LoginSelectionModal';
+import React, { useState } from 'react';  
 function BasicExample() {
   const { favorites, isAuthenticated, showFavoritesOnly, toggleShowFavoritesOnly } = useFavorites();
   const { currentUser, logout } = useUserAuth();
+  const [showLoginSelectionModal, setShowLoginSelectionModal] = useState(false);
   
   const menuData = [
     { path: '/', name: 'Home' },
     { path: '/about', name: 'About' },
-    { path: '/ContactUs', name: 'Contact' },
-    {path: '/Login', name:'Login'}
-    
+    { path: '/ContactUs', name: 'Contact' }
   ];
+
+  const handleLoginClick = () => {
+    setShowLoginSelectionModal(true);
+  };
 
   return (
     <div>
@@ -26,13 +31,13 @@ function BasicExample() {
               style={{ fontFamily: 'serif', fontWeight: '600' }}
               className="text-light"
             >
-              Paragon
+              Your
             </h2>
             <p
               style={{ fontSize: '9px', letterSpacing: '2px' }}
               className="text-light"
             >
-              PROPERTIES
+              Logo
             </p>
           </NavLink>
 
@@ -52,6 +57,21 @@ function BasicExample() {
                   {item.name}
                 </NavLink>
               ))}
+              {!isAuthenticated() && (
+                <button
+                  className="nav-link text-light"
+                  onClick={handleLoginClick}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Login
+                </button>
+              )}
               {isAuthenticated() ? (
                 <div className="d-flex align-items-center">
                   <button
@@ -88,6 +108,10 @@ function BasicExample() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <LoginSelectionModal 
+        show={showLoginSelectionModal} 
+        onHide={() => setShowLoginSelectionModal(false)} 
+      />
     </div>
   );
 }
