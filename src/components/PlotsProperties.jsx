@@ -91,7 +91,7 @@ function PlotsProperties() {
         <Row>
           {filteredProperties.length > 0 ? (
             filteredProperties.map(property => (
-              <Col key={property.id} lg={4} md={6} className="mb-4">
+              <Col key={property.id} xs={12} sm={6} lg={4} className="mb-4">
                 <Card className="h-100 property-card border-0 shadow-lg">
                   <div className="position-relative overflow-hidden">
                     <Carousel interval={4000} indicators={true} controls={true} className="property-carousel">
@@ -185,7 +185,7 @@ function PlotsProperties() {
                         </Button>
                         <Button 
                           as="a" 
-                          href={`https://wa.me/919876543210?text=I'm interested in ${property.title} located at ${property.location}`}
+                          href={`https://wa.me/919011041008?text=I'm interested in ${property.title} located at ${property.location}`}
                           target="_blank"
                           className="flex-fill whatsapp-contact-btn"
                         >
@@ -231,7 +231,7 @@ function PlotsProperties() {
         }
         
         .carousel-image-container {
-          height: 200px;
+          min-height: 200px;
           overflow: hidden;
           position: relative;
           background-color: #f8f9fa;
@@ -241,9 +241,9 @@ function PlotsProperties() {
         }
         
         .carousel-image-container img {
-          height: 100%;
           width: 100%;
-          object-fit: cover;
+          height: auto;
+          object-fit: contain;
         }
         
         .no-image-placeholder {

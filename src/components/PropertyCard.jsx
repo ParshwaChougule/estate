@@ -150,7 +150,7 @@ function PropertyCard({ statusFilter = 'all', searchFilters = {} }) {
         <Row>
           {displayProperties.length > 0 ? (
             displayProperties.map(property => (
-              <Col key={property.id} md={4} className="mb-4">
+              <Col key={property.id} xs={12} sm={6} md={4} className="mb-4">
                 <Card className="h-100 shadow-sm property-card">
                   <Carousel interval={4000} indicators={true} controls={true} className="property-carousel">
                     {property.images && property.images.length > 0 ? property.images.map((image, index) => (
@@ -248,7 +248,7 @@ function PropertyCard({ statusFilter = 'all', searchFilters = {} }) {
                         </Button>
                         <Button 
                           as="a" 
-                          href={`https://wa.me/919876543210?text=I'm interested in ${property.title} located at ${property.location}`}
+                          href={`https://wa.me/919011041008?text=I'm interested in ${property.title} located at ${property.location}`}
                           target="_blank"
                           className="flex-fill whatsapp-contact-btn"
                         >
@@ -294,7 +294,7 @@ function PropertyCard({ statusFilter = 'all', searchFilters = {} }) {
         }
         
         .carousel-image-container {
-          height: 200px;
+          min-height: 200px;
           overflow: hidden;
           position: relative;
           background-color: #f8f9fa;
@@ -304,9 +304,9 @@ function PropertyCard({ statusFilter = 'all', searchFilters = {} }) {
         }
         
         .carousel-image-container img {
-          height: 100%;
           width: 100%;
-          object-fit: cover;
+          height: auto;
+          object-fit: contain;
         }
         
         .no-image-placeholder {

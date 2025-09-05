@@ -58,56 +58,8 @@ function LuxuryProperties() {
     return () => unsubscribe();
   }, []);
 
-  const staticProperties = [
-    {
-      id: 1,
-      title: "Exclusive | Prime Location | Lagoon Access",
-      location: "Tilal Al Ghaf, Dubai",
-      price: "AED 24,950,000",
-      beds: 6,
-      baths: 10,
-      area: '9 522',
-      images: [
-        "https://www.arabianbusiness.com/cloud/2022/02/22/Alaya-Beach_Basement-1024x683.jpg",
-        "https://tagcommunity.network/wp-content/uploads/2025/06/ALAYA_FAMILY-ROOM_REV-1-1024x551.jpg",
-        "https://www.arabianbusiness.com/cloud/2022/02/22/Alaya-Beach_Dining-Area-1024x683.jpg",
-        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRhA2Vjs023cKgJmz33NGjE30vHZ8qrHxfBbLPcuqBCF0_3dDdo",
-        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRBdt6Oq6AK4o2T7V_NaRqSuOPxRfy6V-5nNfkCDQhP40KQj50B"
-      ]
-    },
-    {
-      id: 2,
-      title: "Largest Plot | True Corner | Highly Motivated",
-      location: "Tilal Al Ghaf, Dubai",
-      price: "AED 12,500,000",
-      beds: 5,
-      baths: 7,
-      area: '4 477',
-      images: [
-        "https://thearchitectsdiary.com/wp-content/uploads/2025/01/Villa-Interior-Design-13.jpeg",
-        "https://i.pinimg.com/236x/37/c7/dd/37c7dddb2bc480951dfe651248027738.jpg",
-        "https://i.pinimg.com/736x/21/c9/93/21c99393862507740a4a6a0bd021b02e.jpg",
-        "https://i.pinimg.com/564x/27/de/92/27de9200c8eca51e6ec81bc99c0dcf77.jpg"
-      ]
-    },
-    {
-      id: 3,
-      title: "Highly Motivated | Negotiable | Upgraded",
-      location: "Tilal Al Ghaf, Dubai",
-      price: "AED 14,850,000",
-      beds: 5,
-      baths: 10,
-      area: '5 677',
-      images: [
-        "https://d33om22pidobo4.cloudfront.net/listings/vi185953s/original/asc07084-edit.jpg?d=500x333&f=webp",
-        "https://luxhabitat.ae/resizedimages/320w/19008/source/98a5cd3b68632840bd048aa14f14fe698bc4d9d248c22a3341bf0cf3a20c9bc0.jpg",
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRDCd-uqM8N0kSLi3S4THpjX38gnZbewJKbrCxq2zP3pSboaQhS"
-      ]
-    }
-  ];
-
-  // Combine Firebase properties with static properties
-  const allProperties = [...properties, ...staticProperties];
+  // Use only Firebase properties
+  const allProperties = properties;
 
   // Filter properties based on favorites if needed
   const filteredProperties = allProperties.filter(property => {
@@ -142,14 +94,14 @@ function LuxuryProperties() {
         <Row>
           {filteredProperties.length > 0 ? (
             filteredProperties.map(property => (
-              <Col key={property.id} lg={4} md={6} className="mb-4">
+              <Col key={property.id} xs={12} sm={6} lg={4} className="mb-4">
                 <Card className="h-100 shadow-sm property-card">
                   <Carousel interval={3000} indicators={false}>
                     {property.images.map((image, index) => (
                       <Carousel.Item key={index}>
                         <div 
                           style={{ 
-                            height: '250px', 
+                            minHeight: '250px', 
                             overflow: 'hidden',
                             display: 'flex',
                             alignItems: 'center',
@@ -160,7 +112,7 @@ function LuxuryProperties() {
                             className="d-block w-100"
                             src={image}
                             alt={`Property view ${index + 1}`}
-                            style={{ objectFit: 'cover', height: '100%' }}
+                            style={{ objectFit: 'contain', width: '100%', height: 'auto' }}
                           />
                         </div>
                       </Carousel.Item>
@@ -234,7 +186,7 @@ function LuxuryProperties() {
                       </Button>
                       <Button 
                         as="a" 
-                        href={`https://wa.me/919876543210?text=I'm interested in ${property.title} located at ${property.location}`}
+                        href={`https://wa.me/919011041008?text=I'm interested in ${property.title} located at ${property.location}`}
                         target="_blank"
                         className="flex-fill whatsapp-contact-btn"
                       >

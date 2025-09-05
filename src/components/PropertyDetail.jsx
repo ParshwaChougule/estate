@@ -261,7 +261,7 @@ function PropertyDetail() {
                   </Button>
                   <Button 
                     as="a" 
-                    href={`https://wa.me/919876543210?text=I'm interested in ${property.title} located at ${property.location}`}
+                    href={`https://wa.me/919011041008?text=I'm interested in ${property.title} located at ${property.location}`}
                     target="_blank"
                     className="whatsapp-contact-btn"
                   >

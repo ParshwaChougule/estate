@@ -70,8 +70,91 @@ const BannerPage = ({ onFilterChange, onSearchFiltersChange }) => {
         
         {/* Search Bar */}
         <Row className="justify-content-center">
-          <Col md={10} lg={8}>
-            <InputGroup className="shadow-lg">
+          <Col xs={12} md={10} lg={8}>
+            {/* Mobile: Stack vertically */}
+            <div className="d-block d-md-none">
+              <div className="mb-3">
+                <InputGroup>
+                  <InputGroup.Text className="bg-white">
+                    <FaMapMarkerAlt />  
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search location"
+                    value={searchLocation}
+                    onChange={(e) => setSearchLocation(e.target.value)}
+                  />
+                </InputGroup>
+              </div>
+              
+              <Row className="mb-3">
+                <Col xs={6}>
+                  <Dropdown className="w-100">
+                    <Dropdown.Toggle
+                      variant="light"
+                      className="w-100 text-start"
+                    >
+                      {selectedPriceRange || 'Price Range'}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="w-100">
+                      <Dropdown.Item onClick={() => handlePriceRangeSelect('Below ₹10 lakh')}>Below ₹10 lakh</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handlePriceRangeSelect('10 lakh - ₹20 lakh')}>₹10 lakh - ₹20 lakh</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handlePriceRangeSelect('₹30 lakh - ₹50 lakh')}>₹30 lakh - ₹50 lakh</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handlePriceRangeSelect('₹60 lakh - ₹80 lakh')}>₹60 lakh - ₹80 lakh</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handlePriceRangeSelect('Above ₹80 lakh')}>Above ₹80 lakh</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handlePriceRangeSelect('')}>Any Price</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+                <Col xs={6}>
+                  <Dropdown className="w-100">
+                    <Dropdown.Toggle
+                      variant="light"
+                      className="w-100 text-start"
+                    >
+                      {selectedBedrooms || 'Bedrooms'}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="w-100">
+                      <Dropdown.Item onClick={() => handleBedroomsSelect('1')}>1 Bedroom</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleBedroomsSelect('2')}>2 Bedrooms</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleBedroomsSelect('3')}>3 Bedrooms</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleBedroomsSelect('4')}>4 Bedrooms</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleBedroomsSelect('5+')}>5+ Bedrooms</Dropdown.Item>
+                      <Dropdown.Item onClick={() => handleBedroomsSelect('')}>Any Bedrooms</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+              </Row>
+              
+              <Row>
+                <Col xs={6}>
+                  <Button variant="dark" className="w-100" onClick={handleSearch}>
+                    <FaSearch className="me-2" /> Search
+                  </Button>
+                </Col>
+                <Col xs={6}>
+                  <Button 
+                    variant="outline-light" 
+                    className="w-100" 
+                    onClick={() => {
+                      setSearchLocation('');
+                      setSelectedPriceRange('');
+                      setSelectedBedrooms('');
+                      onSearchFiltersChange({
+                        location: '',
+                        priceRange: '',
+                        bedrooms: ''
+                      });
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+            
+            {/* Desktop: Horizontal layout */}
+            <InputGroup className="shadow-lg d-none d-md-flex">
               {/* Location Input */}
               <InputGroup.Text className="bg-white">
                 <FaMapMarkerAlt />  

@@ -48,7 +48,8 @@ const AdminDashboard = () => {
   const handleLogout = async () => {
     try {
       logout();
-      navigate('/login');
+      // Clear browser history and redirect to home page
+      window.location.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
     }
@@ -69,7 +70,7 @@ const AdminDashboard = () => {
 
   const renderOverview = () => (
     <Row>
-      <Col md={3} className="mb-4">
+      <Col xs={6} md={3} className="mb-4">
         <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
           <Card.Body className="p-4">
             <FaUsers size={50} className="text-white mb-3" />
@@ -78,7 +79,7 @@ const AdminDashboard = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col md={3} className="mb-4">
+      <Col xs={6} md={3} className="mb-4">
         <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
           <Card.Body className="p-4">
             <FaHome size={50} className="text-white mb-3" />
@@ -87,7 +88,7 @@ const AdminDashboard = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col md={3} className="mb-4">
+      <Col xs={6} md={3} className="mb-4">
         <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
           <Card.Body className="p-4">
             <FaEnvelope size={50} className="text-white mb-3" />
@@ -96,7 +97,7 @@ const AdminDashboard = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col md={3} className="mb-4">
+      <Col xs={6} md={3} className="mb-4">
         <Card className="text-center h-100 border-0 shadow-lg stat-card" style={{ background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', transform: 'scale(1)', transition: 'all 0.3s ease' }}>
           <Card.Body className="p-4">
             <FaMoneyBillWave size={50} className="text-white mb-3" />
@@ -212,7 +213,7 @@ const AdminDashboard = () => {
       <Card.Body>
         {adminData && (
           <Row>
-            <Col md={6}>
+            <Col xs={12} md={6}>
               <h6>Admin Information</h6>
               <p><strong>Phone:</strong> {adminData.phone}</p>
               <p><strong>Password:</strong> ••••••</p>
@@ -237,34 +238,75 @@ const AdminDashboard = () => {
     <div className="min-vh-100" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', minHeight: '100vh' }}>
       {/* Top Navigation */}
       <Navbar className="shadow-lg border-0" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
-        <Container fluid className="px-4">
+        <Container fluid className="px-2 px-md-4">
           <Navbar.Brand className="fw-bold d-flex align-items-center" style={{ color: '#2c3e50' }}>
             <FaBuilding className="me-2" size={28} style={{ color: '#667eea' }} />
             <span style={{ fontSize: '1.5rem', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Paragon Properties Admin</span>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <div className="d-flex align-items-center">
+            {/* Desktop View */}
+            <div className="d-none d-md-flex align-items-center">
               <span className="me-3 fw-semibold" style={{ color: '#2c3e50' }}>Welcome, Admin</span>
-              <Dropdown align="end">
-                <Dropdown.Toggle 
+              <div className="d-flex align-items-center gap-2">
+                <Dropdown align="end">
+                  <Dropdown.Toggle 
+                    className="border-0 rounded-pill px-3 fw-semibold"
+                    style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}
+                  >
+                    <FaCog className="me-1" /> Profile
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="border-0 shadow-lg rounded-3">
+                    <Dropdown.Item className="py-2">
+                      <FaCog className="me-2" />
+                      Settings
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Button 
+                  onClick={handleLogout} 
                   className="border-0 rounded-pill px-3 fw-semibold"
-                  style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}
+                  style={{ background: 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)', color: 'white' }}
                 >
-                  <FaCog className="me-1" /> Profile
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="border-0 shadow-lg rounded-3">
-                  <Dropdown.Item className="py-2">
-                    <FaCog className="me-2" />
-                    Settings
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout} className="text-danger py-2">
-                    <FaSignOutAlt className="me-2" />
-                    Logout
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  <FaSignOutAlt className="me-1" /> Logout
+                </Button>
+              </div>
+            </div>
+            
+            {/* Mobile View */}
+            <div className="d-flex d-md-none align-items-center w-100 justify-content-between">
+              <span className="fw-semibold text-truncate" style={{ color: '#2c3e50', fontSize: '0.9rem' }}>Welcome, Admin</span>
+              <div className="d-flex align-items-center gap-1">
+                <Dropdown align="end">
+                  <Dropdown.Toggle 
+                    className="border-0 rounded-pill px-2 py-1 fw-semibold"
+                    style={{ 
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
+                      color: 'white',
+                      fontSize: '0.8rem'
+                    }}
+                  >
+                    <FaCog className="me-1" /> Profile
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="border-0 shadow-lg rounded-3">
+                    <Dropdown.Item className="py-2">
+                      <FaCog className="me-2" />
+                      Settings
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Button 
+                  onClick={handleLogout} 
+                  className="border-0 rounded-pill px-2 py-1 fw-semibold"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)', 
+                    color: 'white',
+                    fontSize: '0.8rem'
+                  }}
+                >
+                  <FaSignOutAlt className="me-1" /> Logout
+                </Button>
+              </div>
             </div>
           </Navbar.Collapse>
         </Container>
@@ -273,7 +315,7 @@ const AdminDashboard = () => {
       <Container fluid className="py-4">
         <Row>
           {/* Sidebar */}
-          <Col md={2} className="mb-4">
+          <Col xs={12} md={2} className="mb-4">
             <Card className="border-0 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
               <Card.Body className="p-0">
                 <div className="p-4 text-center border-bottom">
@@ -355,7 +397,7 @@ const AdminDashboard = () => {
           </Col>
 
           {/* Main Content */}
-          <Col md={10}>
+          <Col xs={12} md={10}>
             <div className="mb-4 p-4 rounded-4 shadow-lg" style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)' }}>
               <div className="d-flex align-items-center justify-content-between">
                 <div>

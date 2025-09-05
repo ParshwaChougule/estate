@@ -15,12 +15,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
   color: white;
 }
 
@@ -34,5 +29,113 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .banner-section {
+    min-height: 60vh;
+    padding: 20px 0;
+  }
+
+  .banner-section h1 {
+    font-size: 2rem;
+  }
+
+  .banner-section p {
+    font-size: 1rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+
+  .property-card {
+    margin-bottom: 20px;
+  }
+
+  .property-card .card-img-top {
+    height: 200px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  /* Admin Dashboard Mobile Styles */
+  .navbar-brand span {
+    font-size: 1.2rem !important;
+  }
+
+  .stat-card .card-body {
+    padding: 1rem !important;
+  }
+
+  .stat-card h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .stat-card p {
+    font-size: 0.8rem !important;
+  }
+
+  .nav-pills .nav-link {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-section {
+    min-height: 50vh;
+  }
+  
+  .search-banner {
+    height: 50vh !important;
+  }
+  
+  .search-banner h1 {
+    font-size: 1.5rem;
+  }
+  
+  .property-card .card-body {
+    padding: 15px;
+  }
+  
+  .property-title {
+    font-size: 1rem;
+    height: auto;
+  }
+  
+  .price-tag {
+    font-size: 1.1rem;
+  }
+  
+  .btn {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
   }
 }
