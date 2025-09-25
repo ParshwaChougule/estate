@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Carousel, Badge } from "react-bootstrap";
-import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaHeart } from "react-icons/fa";
+import { FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaHeart, FaShare } from "react-icons/fa";
 import { database } from "../firebase";
 import { ref, onValue } from "firebase/database";
 import { useFavorites } from "../contexts/FavoritesContext";
@@ -75,6 +75,35 @@ function PropertyCard({ statusFilter = 'all', searchFilters = {} }) {
       case 'rented': return 'Rented';
       default: return 'Unknown';
     }
+  };
+
+  // Function to share property details on WhatsApp
+  const shareProperty = (property) => {
+    const propertyDetails = `
+EXCLUSIVE PROPERTY ALERT!
+
+${property.title}
+Location: ${property.location}
+
+PRICE: Rs.${property.price}
+${property.type !== 'plots' ? `${property.bedrooms} Bedrooms | ${property.bathrooms} Bathrooms` : ''}
+AREA: ${property.area} Sq Ft
+STATUS: ${getStatusText(property.status || 'available')}
+
+${property.description ? `HIGHLIGHTS: ${property.description}` : ''}
+
+Don't miss this incredible opportunity!
+Premium location with excellent connectivity
+Perfect for investment or personal use
+
+Contact us NOW for site visit & best deals!
+Limited time offer - Act fast!
+
+Your Dream Home Awaits!
+    `.trim();
+
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(propertyDetails)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   useEffect(() => {
@@ -202,6 +231,26 @@ function PropertyCard({ statusFilter = 'all', searchFilters = {} }) {
                           title={isFavorite(property.id) ? 'Remove from favorites' : 'Add to favorites'}
                         >
                           <FaHeart />
+                        </button>
+                        <button
+                          className="btn p-0 border-0 bg-transparent"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            shareProperty(property);
+                          }}
+                          style={{
+                            color: '#25d366',
+                            fontSize: '1.2rem',
+                            transition: 'color 0.3s ease, transform 0.2s ease',
+                            cursor: 'pointer',
+                            zIndex: 10
+                          }}
+                          onMouseEnter={(e) => e.target.style.transform = 'scale(1.1)'}
+                          onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                          title="Share on WhatsApp"
+                        >
+                          <FaShare />
                         </button>
                         <Badge bg={getStatusColor(property.status || 'available')} className="status-badge">
                           {getStatusText(property.status || 'available')}

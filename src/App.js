@@ -14,7 +14,6 @@ import ContactUs from './components/ContactUs';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from './components/About';
-import LoginPage from './components/login';
 import AdminDashboard from './components/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import PropertyDetail from './components/PropertyDetail';
@@ -85,7 +84,6 @@ function App() {
 
           <Route path="/ContactUs" element={<ContactUs />} />
         
-        <Route path="/Login" element={<LoginPage />} />
         
         {/* Property Type Routes */}
         <Route path="/commercial-properties" element={<CommercialProperties />} />

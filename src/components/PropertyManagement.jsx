@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge, Alert, Image } from 'react-bootstrap';
+import { Container, Row, Col, Card, Table, Button, Modal, Form, Badge, Alert, Image, Pagination } from 'react-bootstrap';
 import { FaEdit, FaTrash, FaPlus, FaEye, FaUpload, FaTimes } from 'react-icons/fa';
 import { database, storage } from '../firebase';
 import { ref, push, onValue, remove, update } from 'firebase/database';
@@ -11,6 +11,8 @@ const PropertyManagement = () => {
   const [editingProperty, setEditingProperty] = useState(null);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [propertiesPerPage] = useState(10);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -218,6 +220,16 @@ const PropertyManagement = () => {
     }
   };
 
+  // Pagination logic
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const currentProperties = properties.slice(indexOfFirstProperty, indexOfLastProperty);
+  const totalPages = Math.ceil(properties.length / propertiesPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div>
       {alert.show && (
@@ -227,7 +239,14 @@ const PropertyManagement = () => {
       )}
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h6 className="mb-0">All Properties ({properties.length})</h6>
+        <div>
+          <h6 className="mb-0">All Properties ({properties.length})</h6>
+          {properties.length > 0 && (
+            <small className="text-muted">
+              Showing {indexOfFirstProperty + 1}-{Math.min(indexOfLastProperty, properties.length)} of {properties.length} properties
+            </small>
+          )}
+        </div>
         <Button variant="primary" onClick={() => setShowModal(true)}>
           <FaPlus className="me-2" />
           Add Property
@@ -246,7 +265,7 @@ const PropertyManagement = () => {
           </tr>
         </thead>
         <tbody>
-          {properties.map((property) => (
+          {currentProperties.map((property) => (
             <tr key={property.id}>
               <td>
                 <strong>{property.title}</strong>
@@ -289,6 +308,44 @@ const PropertyManagement = () => {
           )}
         </tbody>
       </Table>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="d-flex justify-content-center mt-4">
+          <Pagination>
+            <Pagination.First 
+              onClick={() => handlePageChange(1)}
+              disabled={currentPage === 1}
+            />
+            <Pagination.Prev 
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            />
+            
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNumber = index + 1;
+              return (
+                <Pagination.Item
+                  key={pageNumber}
+                  active={pageNumber === currentPage}
+                  onClick={() => handlePageChange(pageNumber)}
+                >
+                  {pageNumber}
+                </Pagination.Item>
+              );
+            })}
+            
+            <Pagination.Next 
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            />
+            <Pagination.Last 
+              onClick={() => handlePageChange(totalPages)}
+              disabled={currentPage === totalPages}
+            />
+          </Pagination>
+        </div>
+      )}
 
       {/* Add/Edit Property Modal */}
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
